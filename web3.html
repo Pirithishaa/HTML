@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hobbies</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      color: #000;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .testimonial {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 5rem;
+    }
+
+    h1 {
+      margin: 20px 0;
+    }
+
+    .line {
+      height: 2px;
+      width: 6rem;
+      background-color: #e26c4f;
+      margin-bottom: calc(3rem + 2vmin);
+    }
+
+    .arrow-wrapper {
+      position: relative;
+      width: 70%;
+      border-radius: 2rem;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      overflow: hidden;
+      place-items: center;
+    }
+
+    .review-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: calc(2rem + 1vmin);
+      width: 100%;
+    }
+
+    #imgBox {
+      border-radius: 50%;
+      width: calc(6rem + 4vmin);
+      height: calc(6rem + 4vmin);
+      position: relative;
+      box-shadow: 5px -3px #e26c4f;
+      background-size: cover;
+      margin-bottom: calc(0.7rem + 0.5vmin);
+    }
+
+    #name {
+      margin-bottom: calc(0.7rem + 0.5vmin);
+      font-size: calc(1rem + 0.5vmin);
+      letter-spacing: calc(0.1rem + 0.1vmin);
+      font-weight: bold;
+    }
+
+    #profession {
+      font-size: calc(0.8rem + 0.3vmin);
+      margin-bottom: calc(0.7rem + 0.5vmin);
+      color: #e26c4f;
+    }
+
+    #description {
+      font-size: calc(0.8rem + 0.3vmin);
+      width: 70%;
+      max-width: 40rem;
+      text-align: center;
+      margin-bottom: calc(1.4rem + 1vmin);
+      color: rgb(92, 92, 92);
+      line-height: 2rem;
+    }
+
+    .arrow {
+      width: calc(1.4rem + 0.6vmin);
+      height: calc(1.4rem + 0.6vmin);
+      border: solid #e26c4f;
+      border-width: 0 calc(0.5rem + 0.2vmin) calc(0.5rem + 0.2vmin) 0;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .arrow:hover {
+      transition: 0.3s;
+      transform: scale(1.15);
+    }
+
+    .left-arrow-wrap {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: rotate(135deg);
+    }
+
+    .right-arrow-wrap {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: rotate(-45deg);
+    }
+
+    @media screen and (max-width: 900px) {
+      .testimonial {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="testimonial">
+    <h1>My Hobbies</h1>
+    <div class="line"></div>
+    <!-- arrow wrapper contains the review and the arrows -->
+    <div class="arrow-wrapper">
+      <!-- review section -->
+      <div id="reviewWrap" class="review-wrap">
+        <div id="imgBox"></div>
+        <div id="name"></div>
+        <div id="profession"></div>
+        <div id="description"></div>
+      </div>
+      <!-- left arrow -->
+      <div class="left-arrow-wrap">
+        <div class="arrow"></div>
+      </div>
+      <!-- right arrow -->
+      <div class="right-arrow-wrap">
+        <div class="arrow"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const reviewWrap = document.getElementById("reviewWrap");
+    const leftArrow = document.querySelector(".left-arrow-wrap .arrow");
+    const rightArrow = document.querySelector(".right-arrow-wrap .arrow");
+    const imgBox = document.getElementById("imgBox");
+    const name = document.getElementById("name");
+    const profession = document.getElementById("profession");
+    const description = document.getElementById("description");
+
+    let people = [{
+        photo: 'url("https://wallpapers.com/images/hd/aesthetic-book-pictures-2024-x-2571-8km24qrgg13ejvwx.jpg")',
+        name: "Hobby 1",
+        profession: "Reading Books",
+        description: "There is no friend as loyal as a book"
+      },
+      {
+        photo: "url('data:image/jpeg;base64,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')",
+        name: "Hobby 2",
+        profession: "Listening to Music or Songs",
+        description: "Music is the best form of Magic."
+      },
+      {
+        photo: "url('data:image/jpeg;base64,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')",
+        name: "Hobby 3",
+        profession: "Playing Tennis",
+        description: "Talk with your racquet,play with your heart."
+      },
+      {
+        photo: "url('https://i.pinimg.com/736x/88/ca/f7/88caf76652b3176d7be406cacd43e70d.jpg')",
+        name: "Hobby 4",
+        profession: "Cooking",
+        description: "Cooking is an ART"
+      }
+    ];
+
+    // set the first person
+    imgBox.style.backgroundImage = people[0].photo;
+    name.innerText = people[0].name;
+    profession.innerText = people[0].profession;
+    description.innerText = people[0].description;
+    let currentPerson = 0;
+
+    //Select the side where you want to slide
+    function slide(side, personNumber) {
+      let reviewWrapWidth = reviewWrap.offsetWidth + "px";
+      let descriptionHeight = description.offsetHeight + "px";
+      //(+ or -)
+      let side1symbol = side === "left" ? "" : "-";
+      let side2symbol = side === "left" ? "-" : "";
+
+      setTimeout(() => {
+        imgBox.style.backgroundImage = people[personNumber].photo;
+      }, 0);
+      setTimeout(() => {
+        description.style.height = descriptionHeight;
+      }, 100);
+      setTimeout(() => {
+        name.innerText = people[personNumber].name;
+      }, 200);
+      setTimeout(() => {
+        profession.innerText = people[personNumber].profession;
+      }, 300);
+      setTimeout(() => {
+        description.innerText = people[personNumber].description;
+      }, 400);
+    }
+
+    function setNextCardLeft() {
+      if (currentPerson === 3) {
+        currentPerson = 0;
+        slide("left", currentPerson);
+      } else {
+        currentPerson++;
+      }
+
+      slide("left", currentPerson);
+    }
+
+    function setNextCardRight() {
+      if (currentPerson === 0) {
+        currentPerson = 3;
+        slide("right", currentPerson);
+      } else {
+        currentPerson--;
+      }
+
+      slide("right", currentPerson);
+    }
+
+    leftArrow.addEventListener("click", setNextCardLeft);
+    rightArrow.addEventListener("click", setNextCardRight);
+  </script>
+</body>
+
+</html>
